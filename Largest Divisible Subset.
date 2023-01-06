@@ -1,0 +1,76 @@
+class Solution {
+    public List<Integer> largestDivisibleSubset(int[] nums) {
+        Arrays.sort(nums);
+        int count=0;
+        int[]freq=new int[nums.length];
+        Arrays.fill(freq,0);
+        List<Integer>l1=new ArrayList<>();
+        List<Integer>l2=new ArrayList<>();
+        for(int i=0; i<nums.length; i++)
+        {
+            for(int j=0; j<nums.length; j++)
+            {
+                 if(nums[j]%nums[i]==0)
+                 {
+                     freq[j]++;
+                 }
+                 
+            }
+        }
+        for(int i=0; i<nums.length; i++)
+        {
+
+            l1.add(freq[i]);
+        }
+        int f=0;
+         for(int i=1; i<=nums.length; i++)
+        {
+
+            if(l1.indexOf(i)!=l1.lastIndexOf(i))
+            {
+                if(l1.indexOf(i)!=-1 && l1.indexOf(nums.length)!=-1)
+                {
+                  if(nums[l1.indexOf(nums.length)]%nums[l1.indexOf(i)]==0)
+                  {
+                         f=l1.indexOf(i);
+                  }
+                  else
+                  {
+                      f=l1.lastIndexOf(i);
+                  }
+                   if(f!=-1)
+                  l2.add(nums[f]);
+                }
+                else if(l1.indexOf(i)!=-1 && l1.indexOf(nums.length)==-1)
+                {
+                    
+                
+                  if(nums[l1.indexOf(l1.get(l1.size()-1))]%nums[l1.indexOf(i)]==0)
+                  {
+                         f=l1.indexOf(i);
+                  }
+                  else
+                  {
+                      f=l1.lastIndexOf(i);
+                  }
+                   if(f!=-1)
+                  l2.add(nums[f]);
+                
+                } 
+            }
+            else
+            {
+                if(l1.indexOf(i)!=-1)
+                {
+                   l2.add(nums[l1.indexOf(i)]);
+                }
+            }
+
+        }
+
+        System.out.print(l1);
+        
+        System.out.print(l2);
+        return l2;
+    }
+}
